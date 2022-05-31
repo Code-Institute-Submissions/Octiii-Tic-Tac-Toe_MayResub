@@ -7,13 +7,14 @@ var currPlayer = playerO;
 var gameOver = false;
 
 //A round reset function as to not have to refresh the page to play again.
-
-//function resetGame(){
-//  let boardchildren = document.querySelector("#board").childNodes
-//  for (var i = 0; i<boardchildren.length; i++)
-//    boardchildren[i].innerText = ""
-//  setGame
-//}
+function resetGame(){
+  let boardchildren = document.getElementById("board").children.length
+  let div = document.getElementsByClassName("tile")
+  board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+  div.innerText = " "
+  gameOver = false
+  return
+}
 
 
 //Defines the function of setgame.
@@ -33,9 +34,10 @@ function setGame() {
       if (c == 0 || c == 1) {
         tile.classList.add("vertical-line");
       }
-      //Adds a listner event fo the tiles, and excute the set Tile function.
-      tile.addEventListener("click", setTile);
-      
+      //Adds a listner event fo the tiles, and excute the set Tile function
+      //and to play a sound on click.
+      var audio = new Audio('boop.mp3');
+      tile.addEventListener("click", setTile, audio.play());
       //Adds the divs to the board div.
       document.getElementById("board").append(tile);
     }
@@ -77,7 +79,7 @@ function checkWinner() {
         let tile = document.getElementById(r.toString() + "-" + i.toString());
         tile.classList.add("winner");
       }
-        gameOver = true; 
+        gameOver = true;
         return;
     }
   }
@@ -85,7 +87,7 @@ function checkWinner() {
   for (let c = 0; c < 3; c++) {
     if (board[0][c] == board[1][c] && board[1][c] ==  board[2][c] && board[0][c] != ' ') {
       for (let i = 0; i < 3; i++) {
-      let tile = document.getElementById(i.toString() + "-" + c.toString());                
+      let tile = document.getElementById(i.toString() + "-" + c.toString());
         tile.classList.add("winner");
       }
       gameOver = true;
